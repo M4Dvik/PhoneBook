@@ -111,8 +111,9 @@
                 </Grid>
             </Border> <!--Left Menu-->
 
-        <ListView ItemsSource="{Binding SelectedUser}"
+        <ListView ItemsSource="{Binding SelectedCard.Dates}"
                   Background="Transparent"
+                  BorderThickness="0"
                   ItemContainerStyle="{StaticResource UserDates}"
                   Grid.Row="1"
                   Grid.Column="1"/>

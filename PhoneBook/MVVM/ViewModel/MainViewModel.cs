@@ -1,4 +1,5 @@
-﻿using PhoneBook.MVVM.Model;
+﻿using PhoneBook.Core;
+using PhoneBook.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,36 +9,50 @@ using System.Threading.Tasks;
 
 namespace PhoneBook.MVVM.ViewModel
 {
-    internal class MainViewModel
+    internal class MainViewModel:ObservableObject
     {
         public ObservableCollection<CardModel> Cards { get; set; }
         public ObservableCollection<DataModel> Dates { get; set; }
 
+            /* Commands */
 
+        public RelayCommand SendCommand { get; set; }
+        public CardModel SelectedCard { get; set; }
+
+        private string _LocalNumber;
+        public string LocalNumber
+        {
+            get { return _LocalNumber; }
+            set
+            {
+                _LocalNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
 
 
         public MainViewModel() {
             Cards = new ObservableCollection<CardModel>();
             Dates = new ObservableCollection<DataModel>();
-            
-            /*Dates.Add(new DataModel
+
+            SendCommand = new RelayCommand(o =>
             {
-                Username = "Илья Евсеев1",
-                LocalNumber = "150",
-                PhoneNumber = "1234567890",
-                Email = "1234567890",
-                Post = " системного администратора",
-                CompanyName = "Алюминстрой",
-                CompanyDep = "Отдел IT",
-                IsNativeOrigin = false,
+                Dates.Add(new DataModel
+                {
+                    LocalNumber = LocalNumber,
+
+                });
+
+                LocalNumber = "";
             });
 
+            
             for (int i = 0; i < 3; i++)
             {
                 Dates.Add(new DataModel
                 {
-                    Username = "Илья Евсеев2",
+                    Username = $"Илья Евсеев{i}",
                     LocalNumber = "150",
                     PhoneNumber = "1234567890",
                     Email = "1234567890",
@@ -51,7 +66,7 @@ namespace PhoneBook.MVVM.ViewModel
             {
                 Dates.Add(new DataModel
                 {
-                    Username = "Вася Пупкин1",
+                    Username = $"Вася Пупкин{i}",
                     LocalNumber = "150",
                     PhoneNumber = "1234567890",
                     Email = "1234567890",
@@ -60,26 +75,18 @@ namespace PhoneBook.MVVM.ViewModel
                     CompanyDep = "Отдел IT",
                     IsNativeOrigin = true,
                 });
-            }*/
-            Dates.Add(new DataModel
-            {
-                Username = "Вася Пупкин2",
-                LocalNumber = "150",
-                PhoneNumber = "1234567890",
-                Email = "1234567890",
-                Post = "Помощник системного  администратора",
-                CompanyName = "Алюминстрой",
-                CompanyDep = "Отдел IT",
-                IsNativeOrigin = true,
-            });
-            for (int i = 0; i < 5; i++)
-            {
-                Cards.Add(new CardModel
-                {
-                    Username = $"Илья {i}",
-                    Dates = Dates,
+            }
 
-                });
+            foreach (DataModel user in Dates)
+            {
+                if (user != null)
+                {
+                    Cards.Add(new CardModel
+                    {
+                        Username = user.Username,
+                        Post = user.Post,
+                    }); 
+                }
             }
 
 
