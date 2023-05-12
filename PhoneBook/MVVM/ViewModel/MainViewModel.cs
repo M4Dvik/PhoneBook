@@ -15,17 +15,19 @@ namespace PhoneBook.MVVM.ViewModel
 
 
 
+
+
         public MainViewModel() {
             Cards = new ObservableCollection<CardModel>();
             Dates = new ObservableCollection<DataModel>();
             
-            Dates.Add(new DataModel
+            /*Dates.Add(new DataModel
             {
-                Username = "Илья Евсеев",
+                Username = "Илья Евсеев1",
                 LocalNumber = "150",
                 PhoneNumber = "1234567890",
                 Email = "1234567890",
-                Post = "Помощник системного администратора",
+                Post = " системного администратора",
                 CompanyName = "Алюминстрой",
                 CompanyDep = "Отдел IT",
                 IsNativeOrigin = false,
@@ -35,11 +37,11 @@ namespace PhoneBook.MVVM.ViewModel
             {
                 Dates.Add(new DataModel
                 {
-                    Username = "Илья Евсеев",
+                    Username = "Илья Евсеев2",
                     LocalNumber = "150",
                     PhoneNumber = "1234567890",
                     Email = "1234567890",
-                    Post = "Помощник системного администратора",
+                    Post = "Помощник  администратора",
                     CompanyName = "Алюминстрой",
                     CompanyDep = "Отдел IT",
                     IsNativeOrigin = false,
@@ -49,23 +51,23 @@ namespace PhoneBook.MVVM.ViewModel
             {
                 Dates.Add(new DataModel
                 {
-                    Username = "Вася Пупкин",
+                    Username = "Вася Пупкин1",
                     LocalNumber = "150",
                     PhoneNumber = "1234567890",
                     Email = "1234567890",
-                    Post = "Помощник системного администратора",
+                    Post = "Помощник системного ",
                     CompanyName = "Алюминстрой",
                     CompanyDep = "Отдел IT",
                     IsNativeOrigin = true,
                 });
-            }
+            }*/
             Dates.Add(new DataModel
             {
-                Username = "Вася Пупкин",
+                Username = "Вася Пупкин2",
                 LocalNumber = "150",
                 PhoneNumber = "1234567890",
                 Email = "1234567890",
-                Post = "Помощник системного администратора",
+                Post = "Помощник системного  администратора",
                 CompanyName = "Алюминстрой",
                 CompanyDep = "Отдел IT",
                 IsNativeOrigin = true,

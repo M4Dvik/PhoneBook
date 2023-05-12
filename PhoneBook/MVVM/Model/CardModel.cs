@@ -13,5 +13,6 @@ namespace PhoneBook.MVVM.Model
         public string Post { get; set; }
         public ObservableCollection<DataModel> Dates { get; set; }
         public string UserPost => Dates.Last().Post;
+        public string DUsername => Dates.Last().Username;
     }
 }

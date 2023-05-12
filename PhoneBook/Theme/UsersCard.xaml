@@ -23,7 +23,7 @@
                                     Margin="10,0,0,0"
                                     
                                     >
-                            <TextBlock Text="{Binding Username}"
+                            <TextBlock Text="{Binding DUsername}"
                                    Foreground="White"
                                        Margin="0,10,0,0"/>
                             <TextBlock Text="{Binding UserPost}"
