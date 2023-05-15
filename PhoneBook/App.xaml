@@ -7,8 +7,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/UsersCard.xaml"/>
-                <ResourceDictionary Source="Theme/UserDates.xaml"/>
+                <ResourceDictionary Source="Theme/ScrollBarStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

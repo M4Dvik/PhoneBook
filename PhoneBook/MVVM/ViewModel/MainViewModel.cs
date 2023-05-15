@@ -11,41 +11,32 @@ namespace PhoneBook.MVVM.ViewModel
 {
     internal class MainViewModel:ObservableObject
     {
-        public ObservableCollection<CardModel> Cards { get; set; }
         public ObservableCollection<DataModel> Dates { get; set; }
+        private DataModel _selectedCard;
 
-            /* Commands */
-
-        public RelayCommand SendCommand { get; set; }
-        public CardModel SelectedCard { get; set; }
-
-        private string _LocalNumber;
-        public string LocalNumber
+        public DataModel SelectedCard
         {
-            get { return _LocalNumber; }
-            set
-            {
-                _LocalNumber = value;
+            get { return _selectedCard; }
+            set { _selectedCard = value;
                 OnPropertyChanged();
             }
         }
 
+        /* Commands */
+
+
+
+
+
+
 
 
         public MainViewModel() {
-            Cards = new ObservableCollection<CardModel>();
             Dates = new ObservableCollection<DataModel>();
 
-            SendCommand = new RelayCommand(o =>
-            {
-                Dates.Add(new DataModel
-                {
-                    LocalNumber = LocalNumber,
+             
 
-                });
 
-                LocalNumber = "";
-            });
 
             
             for (int i = 0; i < 3; i++)
@@ -59,7 +50,6 @@ namespace PhoneBook.MVVM.ViewModel
                     Post = "Помощник  администратора",
                     CompanyName = "Алюминстрой",
                     CompanyDep = "Отдел IT",
-                    IsNativeOrigin = false,
                 });
             }
             for (int i = 0; i < 4; i++)
@@ -73,21 +63,10 @@ namespace PhoneBook.MVVM.ViewModel
                     Post = "Помощник системного ",
                     CompanyName = "Алюминстрой",
                     CompanyDep = "Отдел IT",
-                    IsNativeOrigin = true,
                 });
             }
 
-            foreach (DataModel user in Dates)
-            {
-                if (user != null)
-                {
-                    Cards.Add(new CardModel
-                    {
-                        Username = user.Username,
-                        Post = user.Post,
-                    }); 
-                }
-            }
+
 
 
         }

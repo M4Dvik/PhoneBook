@@ -15,6 +15,5 @@ namespace PhoneBook.MVVM.Model
         public string Post { get; set; }
         public string CompanyName { get; set; }
         public string CompanyDep { get; set;}
-        public bool IsNativeOrigin { get; set; }
     }
 }

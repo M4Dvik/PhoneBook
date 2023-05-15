@@ -77,7 +77,8 @@
                            FontSize="22"
                            Margin="8,0,0,0"
                            />
-                        <ListView ItemsSource="{Binding Cards}"
+                        <ListView ItemsSource="{Binding Dates}"
+                                  SelectedItem="{Binding SelectedCard}"
                           Grid.Row="1"
                           Background="Transparent"
                           BorderThickness="0"
@@ -111,15 +112,232 @@
                 </Grid>
             </Border> <!--Left Menu-->
 
-        <ListView ItemsSource="{Binding SelectedCard.Dates}"
-                  Background="Transparent"
-                  BorderThickness="0"
-                  ItemContainerStyle="{StaticResource UserDates}"
-                  Grid.Row="1"
-                  Grid.Column="1"/>
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              DataContext="{Binding SelectedCard}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border BorderBrush="#2f3136"
+                                BorderThickness="0,0,0,2">
+                <Grid HorizontalAlignment="Stretch"
+                                  Margin="8">
+                    <TextBlock Text="{Binding Username}"
+                                           Foreground="White"
+                                           FontWeight="Bold"
+                                           Margin="5,0,5,0"
+                                           VerticalAlignment="Center"/>
+
+                </Grid>
+
+
+            </Border>
+            <!--Username(Header)-->
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+                <Border Margin="8"
+                                    CornerRadius="10"
+                                    Background="#292B2F">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                            BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="5,0,5,0">
+
+                        </Border>
+                        <TextBlock Grid.Row="0"
+                                               Text="Должность"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                        <TextBlock Grid.Row="1"
+                                               Text="{Binding Post}"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                    </Grid>
+                </Border>
+                <!--Должность-->
+
+                <Border Margin="8"
+                                    Grid.Column="1"
+                                    CornerRadius="10"
+                                    Background="#292B2F">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                            BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="5,0,5,0">
+
+                        </Border>
+                        <TextBlock Grid.Row="0"
+                                               Text="Отдел"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                        <TextBlock Grid.Row="1"
+                                               Text="{Binding CompanyDep}"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                    </Grid>
+                </Border>
+                <!--Отдел-->
+
+                <Border Margin="8"
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    CornerRadius="10"
+                                    Background="#292B2F">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                            BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="5,0,5,0">
+
+                        </Border>
+                        <TextBlock Grid.Row="0"
+                                               Text="Организация"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                        <TextBlock Grid.Row="1"
+                                               Text="{Binding CompanyName}"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                    </Grid>
+                </Border>
+                <!--Организация-->
+
+                <Border Margin="8"
+                                    Grid.Row="1"
+                                    CornerRadius="10"
+                                    Background="#292B2F">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                            BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="5,0,5,0">
+
+                        </Border>
+                        <TextBlock Grid.Row="0"
+                                               Text="Телефон"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                        <TextBlock Grid.Row="1"
+                                               Text="{Binding LocalNumber}"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                    </Grid>
+                </Border>
+                <!--Телефон-->
+
+                <Border Margin="8"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    CornerRadius="10"
+                                    Background="#292B2F">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                            BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="5,0,5,0">
+
+                        </Border>
+                        <TextBlock Grid.Row="0"
+                                               Text="Мобильный номер"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                        <TextBlock Grid.Row="1"
+                                               Text="{Binding PhoneNumber}"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                    </Grid>
+                </Border>
+                <!--Личный номер-->
+
+                <Border Margin="8"
+                                    Grid.Column="2"
+                                    Grid.Row="1"
+                                    CornerRadius="10"
+                                    Background="#292B2F">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                            BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="5,0,5,0">
+
+                        </Border>
+                        <TextBlock Grid.Row="0"
+                                               Text="Email"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                        <TextBlock Grid.Row="1"
+                                               Text="{Binding Email}"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               Margin="8"/>
+                    </Grid>
+                </Border>
+                <!--Email-->
 
 
 
+
+            </Grid>
+        </Grid> <!--User Data-->
 
 
 
