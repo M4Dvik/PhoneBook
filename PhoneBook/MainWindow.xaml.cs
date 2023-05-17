@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
+using PhoneBook.MVVM.ViewModel;
 
 namespace PhoneBook
 {
@@ -53,5 +55,20 @@ namespace PhoneBook
         {
             Application.Current.Shutdown();
         }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            SideBar_HeadRow.Height = new GridLength(100);
+            SearchGrid.Visibility = Visibility.Visible;
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SideBar_HeadRow.Height = new GridLength(50);  
+            SearchGrid.Visibility= Visibility.Collapsed;
+
+        }
+
+
     }
 }

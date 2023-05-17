@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/UsersCard.xaml"/>
                 <ResourceDictionary Source="Theme/ScrollBarStyle.xaml"/>
+                <ResourceDictionary Source="Theme/SearchButton.xaml"/>
+                <ResourceDictionary Source="Theme/SearchBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
 

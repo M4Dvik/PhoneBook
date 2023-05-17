@@ -14,6 +14,7 @@
         <viewmodel:MainViewModel/>
     </Window.DataContext>
 
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -58,34 +59,103 @@
                     </StackPanel> <!--Control panel-->
                 </Grid>
                 
-            </Border> <!--Header-->
+            </Border> <!--Window Head-->
             
             <Border Grid.Row="1"
                     Background="#2F3136">
                 <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50" Name="SideBar_HeadRow"/>
                             <RowDefinition/>
                             <RowDefinition Height="60"/>
-                    </Grid.RowDefinitions>
+                        </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0"
+                <Border Grid.Row="0">
+                    
+                    <Grid>
+                        
+                        <TextBlock
                            Text="Справочник"
-                           VerticalAlignment="Center"
+                           VerticalAlignment="Top"
                            HorizontalAlignment="Left"
                            Foreground="LightGray"
                            FontSize="22"
-                           Margin="8,0,0,0"
-                           />
-                        <ListView ItemsSource="{Binding Dates}"
-                                  SelectedItem="{Binding SelectedCard}"
-                          Grid.Row="1"
+                           Margin="8,8,0,0"
+                           /> <!--Текст "Справочник"-->
+                        
+                        <Grid Margin="0,10,10,0"
+                              VerticalAlignment="Top" HorizontalAlignment="Right"
+                              Height="28" Width="28"
+                              Visibility="Visible">
+                            <CheckBox BorderThickness="0"
+                                      Margin="0"
+                                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                      Style="{StaticResource SearchButton}"
+                                      Checked="CheckBox_Checked"
+                                      Unchecked="CheckBox_Unchecked">
+                            </CheckBox> 
+                        </Grid> <!--Значок поиска-->
+                        
+                        <Grid Height="50"
+                              VerticalAlignment="Bottom"
+                              Visibility="Collapsed"
+                              Name="SearchGrid">
+                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            
+                            <StackPanel Grid.Row="0"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        >
+                                <TextBox Name="NameSearchBox"
+                                         Style="{StaticResource SearchBox1}"
+                                         Text="{Binding SearchText1, UpdateSourceTrigger=PropertyChanged}">
+                                    
+                                </TextBox>
+                                <TextBox Name="PostSearchBox"
+                                         Style="{StaticResource SearchBox2}"
+                                         Text="{Binding SearchText2, UpdateSourceTrigger=PropertyChanged}">
+
+                                </TextBox>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Row="1"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        >
+                                <TextBox Name="NumberSearchBox"
+                                         Style="{StaticResource SearchBox3}"
+                                         Text="{Binding SearchText3, UpdateSourceTrigger=PropertyChanged}">
+                                    
+                                </TextBox>
+                                <TextBox Name="CompanyDepSearchBox"
+                                         Style="{StaticResource SearchBox4}"
+                                         Text="{Binding SearchText4, UpdateSourceTrigger=PropertyChanged}">
+                                    
+                                </TextBox>
+                            </StackPanel>
+
+                        </Grid> <!--Поиск-->
+                    </Grid>
+
+
+                </Border> <!--Head-->
+
+                <Border Grid.Row="1">
+                    <ListView ItemsSource="{Binding DatesView}"
+                          SelectedItem="{Binding SelectedCard}"
                           Background="Transparent"
                           BorderThickness="0"
-                                  ItemContainerStyle="{StaticResource UsersCard}"/>
+                          ItemContainerStyle="{StaticResource UsersCard}"/>
+                </Border> <!--List Users-->
 
-                    <Border Grid.Row="2"
-                            Background="#292B2F">
+                <Border Grid.Row="2"
+                        Background="#292B2F">
                     
                         <StackPanel VerticalAlignment="Center"
                                     Grid.Row="2"
@@ -105,14 +175,14 @@
                                        />
                         </StackPanel>
                     
-                    </Border>
+                    </Border> <!--User Panel-->
 
 
 
                 </Grid>
             </Border> <!--Left Menu-->
 
-        <Grid Grid.Column="1"
+            <Grid Grid.Column="1"
               Grid.Row="1"
               DataContext="{Binding SelectedCard}">
 
@@ -337,11 +407,11 @@
 
 
             </Grid>
-        </Grid> <!--User Data-->
+        </Grid> <!--Right Menu-->
 
 
 
-    </Grid>
+        </Grid>
     
 
 </Window>
