@@ -5,10 +5,23 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\teamwork.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\search.png" />
+    <None Remove="Images\connection_off.png" />
+    <None Remove="Images\connection_on.png" />
+    <None Remove="Images\cross.png" />
+    <None Remove="Images\envelope.png" />
+    <None Remove="Images\expand.png" />
+    <None Remove="Images\teamwork.ico" />
+    <None Remove="Images\window-minimize.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\teamwork.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -17,8 +30,30 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\search.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\connection_off.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\connection_on.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\cross.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\envelope.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\expand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\teamwork.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\window-minimize.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

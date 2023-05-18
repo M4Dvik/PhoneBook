@@ -4,11 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+
 
 namespace PhoneBook.MVVM.ViewModel
 {
@@ -18,8 +20,7 @@ namespace PhoneBook.MVVM.ViewModel
         public ICollectionView DatesView { get; set; }
 
 
-        private DataModel _selectedCard;
-
+        private DataModel? _selectedCard;
         public DataModel SelectedCard
         {
             get { return _selectedCard; }
@@ -28,61 +29,49 @@ namespace PhoneBook.MVVM.ViewModel
             }
         }
 
-        private string _searchText1;
-
-        public string SearchText1
+        private string? _searchText;
+        public string SearchText
         {
-            get { return _searchText1; }
+            get { return _searchText; }
             set 
             { 
-                _searchText1 = value;
+                _searchText = value;
                 ApplyFilter();
                 
             }
-        }       
-        
-        private string _searchText2;
+        }
 
-        public string SearchText2
+        private string? _currentUserName;
+        public string? CurrentUserName
         {
-            get { return _searchText2; }
-            set 
-            { 
-                _searchText2 = value;
-                ApplyFilter();
-
+            get { return _currentUserName; }
+            set
+            {
+                _currentUserName = value;
+                OnPropertyChanged(); // Вызов события OnPropertyChanged для обновления привязки
             }
         }
 
-        private string _searchText3;
-
-        public string SearchText3
+        private string? _CurrentUserDepartment;
+        public string? CurrentUserDepartment
         {
-            get { return _searchText3; }
-            set 
-            { 
-                _searchText3 = value;
-                ApplyFilter();
-
+            get { return _CurrentUserDepartment; }
+            set { _CurrentUserDepartment = value;
+                OnPropertyChanged();
             }
         }
-        
-        private string _searchText4;
 
-        public string SearchText4
+        private string _connectionIcon;
+        public string ConnectionIcon
         {
-            get { return _searchText4; }
-            set 
-            { 
-                _searchText4 = value;
-                ApplyFilter();
-
-            }
+            get { return _connectionIcon; }
+            set { _connectionIcon = value; }
         }
 
 
 
-        /* Commands */
+
+
 
         private void ApplyFilter()
         {
@@ -90,13 +79,17 @@ namespace PhoneBook.MVVM.ViewModel
             {
                 if (o is DataModel data)
                 {
-                    bool matchesSearchText1 = string.IsNullOrEmpty(SearchText1) || data.Username.ToLower().Contains(SearchText1.ToLower());
-                    bool matchesSearchText2 = string.IsNullOrEmpty(SearchText2) || data.Post.ToLower().Contains(SearchText2.ToLower());
-                    bool matchesSearchText3 = string.IsNullOrEmpty(SearchText3) || data.LocalNumber.ToLower().Contains(SearchText3.ToLower());
-                    bool matchesSearchText4 = string.IsNullOrEmpty(SearchText4) || data.CompanyDep.ToLower().Contains(SearchText4.ToLower());
+                    bool matchesSearchText = string.IsNullOrEmpty(SearchText) 
+                     || data.Username.ToLower().Contains(SearchText.ToLower())
+                     || data.Post.ToLower().Contains(SearchText.ToLower())
+                     || data.LocalNumber.ToLower().Contains(SearchText.ToLower())
+                     || data.Email.ToLower().Contains(SearchText.ToLower())
+                     || data.PhoneNumber.ToLower().Contains(SearchText.ToLower())
+                     || data.CompanyName.ToLower().Contains(SearchText.ToLower())
+                     || data.CompanyDep.ToLower().Contains(SearchText.ToLower());
 
                     // Применяем логический оператор для комбинирования условий
-                    return matchesSearchText1 && matchesSearchText2 && matchesSearchText3 && matchesSearchText4;
+                    return matchesSearchText;
                 }
 
                 return false;
@@ -112,50 +105,69 @@ namespace PhoneBook.MVVM.ViewModel
             BindingOperations.EnableCollectionSynchronization(Dates, new object());
             DatesView = CollectionViewSource.GetDefaultView(Dates);
 
-            
-
-
-
-
-            for (int i = 0; i < 3; i++)
+            try
             {
-                Dates.Add(new DataModel
-                {
-                    Username = $"Илья Евсеев{i}",
-                    LocalNumber = "150",
-                    PhoneNumber = "1234567890",
-                    Email = "1234567890",
-                    Post = "Помощник  администратора",
-                    CompanyName = "Алюминстрой",
-                    CompanyDep = $"Отдел IT{i}",
-                });
+                CurrentUserName = ActiveDirectory.CurrentUserName;
             }
-            for (int i = 0; i < 3; i++)
+            catch (Exception)
             {
-                Dates.Add(new DataModel
-                {
-                    Username = $"Марья Иванновна{i}",
-                    LocalNumber = $"{i}150",
-                    PhoneNumber = "1234567890",
-                    Email = "1234567890",
-                    Post = "Помощник системного администратора",
-                    CompanyName = "Алюминстрой",
-                    CompanyDep = $"Отдел IT{i}",
-                });
-            }
-            for (int i = 0; i < 4; i++)
+                CurrentUserName = "Default";
+            } // Current User Name OR No Connection
+
+            try
             {
-                Dates.Add(new DataModel
-                {
-                    Username = $"Вася Пупкин{i}",
-                    LocalNumber = $"150",
-                    PhoneNumber = "1234567890",
-                    Email = "1234567890",
-                    Post = "Помощник системного ",
-                    CompanyName = "Алюминстрой",
-                    CompanyDep = $"Отдел IT{i}",
-                });
+                CurrentUserDepartment = ActiveDirectory.CurrentUserDepartment;
             }
+            catch (Exception)
+            {
+                CurrentUserDepartment = "DefaultDefaultDefaultDefaultDefaultDefaultDefault";
+            } // Current User Post OR No Connection
+
+            try
+            {
+                foreach (SearchResult searchResult in ActiveDirectory.Users)
+                {
+                    string? username = searchResult.Properties.Contains("name") ? searchResult.Properties["name"][0].ToString() : string.Empty;
+                    string? localNumber = searchResult.Properties.Contains("telephoneNumber") ? searchResult.Properties["telephoneNumber"][0].ToString() : string.Empty;
+                    string? phoneNumber = searchResult.Properties.Contains("mobile") ? searchResult.Properties["mobile"][0].ToString() : string.Empty;
+                    string? email = searchResult.Properties.Contains("mail") ? searchResult.Properties["mail"][0].ToString() : string.Empty;
+                    string? post = searchResult.Properties.Contains("title") ? searchResult.Properties["title"][0].ToString() : string.Empty;
+                    string? companyName = searchResult.Properties.Contains("company") ? searchResult.Properties["company"][0].ToString() : string.Empty;
+                    string? companyDep = searchResult.Properties.Contains("department") ? searchResult.Properties["department"][0].ToString() : string.Empty;
+
+                    Dates.Add(new DataModel
+                    {
+                        Username = username,
+                        LocalNumber = localNumber,
+                        PhoneNumber = phoneNumber,
+                        Email = email,
+                        Post = post,
+                        CompanyName = companyName,
+                        CompanyDep = companyDep
+                    });
+                }
+                ConnectionIcon = "/Images/connection_on.png";
+            }
+            catch (Exception ex) 
+            {
+                
+                for (int i = 0; i < 4; i++)
+                {
+                    Dates.Add(new DataModel
+                    {
+                        Username = $"Вася Пупкин{i}",
+                        LocalNumber = $"404",
+                        PhoneNumber = "1234567890",
+                        Email = "@mail.ru",
+                        Post = "Разнорабочий",
+                        CompanyName = "Компания",
+                        CompanyDep = $"Отдел{i}",
+                    });
+                }
+                ConnectionIcon = "/Images/connection_off.png";
+            } // User List OR No Connection
+
+            DatesView.SortDescriptions.Add(new SortDescription("Username", ListSortDirection.Ascending));
 
 
 

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using PhoneBook.MVVM.ViewModel;
+using System.Diagnostics;
 
 namespace PhoneBook
 {
@@ -45,8 +46,10 @@ namespace PhoneBook
             if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
             {
                 Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                Application.Current.MainWindow.BorderThickness = new Thickness(7);
             } else
             {
+                Application.Current.MainWindow.BorderThickness = new Thickness(0);
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
             }
         }
@@ -56,19 +59,18 @@ namespace PhoneBook
             Application.Current.Shutdown();
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void SendMailButton_Click(object sender, RoutedEventArgs e)
         {
-            SideBar_HeadRow.Height = new GridLength(100);
-            SearchGrid.Visibility = Visibility.Visible;
+                // Открываем Outlook и создаем новое письмо
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = $"mailto:{MailTextBox.Text}",
+                    UseShellExecute = true,
+                }); 
+
         }
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            SideBar_HeadRow.Height = new GridLength(50);  
-            SearchGrid.Visibility= Visibility.Collapsed;
 
-        }
-
-
+    
     }
 }

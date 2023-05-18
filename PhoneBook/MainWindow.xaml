@@ -9,10 +9,13 @@
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         Background="#36393f"
-        AllowsTransparency="True">
+        AllowsTransparency="True" Icon="/Images/teamwork.ico"
+        >
+
     <Window.DataContext>
         <viewmodel:MainViewModel/>
     </Window.DataContext>
+    
 
 
         <Grid>
@@ -25,174 +28,147 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
-            
-            <Border Grid.ColumnSpan="2"
+
+        <!--Window Head-->
+        <Border Grid.ColumnSpan="2"
                     Background="#25252a"
                     MouseDown="Border_MouseDown">
                 <Grid>
-
-                    <StackPanel HorizontalAlignment="Right"
+                <!--Control panel-->
+                <StackPanel HorizontalAlignment="Right"
                                 Orientation="Horizontal">
-                        <Button Width="20" Height="20"
-                                Content="🗕"
+                    <Button Width="20" Height="20"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Foreground="Gray"
-                                FontWeight="Bold"
-                                Padding="0,0,0,3"
-                                Click="ButtonMinimize_Click"/>
-                        <Button Width="20" Height="20"
-                                Content="☐"
+                                Click="ButtonMinimize_Click">
+                        <Image Source="/Images/window-minimize.png"
+                               Margin="2"/>
+                    </Button>
+                    <Button Width="20" Height="20"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Foreground="Gray"
-                                FontWeight="Bold"
-                                Click="WindowStateButton_Click"/>
-                        <Button Width="20" Height="20"
-                                Content="✕"
+                                Click="WindowStateButton_Click">
+                        <Image Source="/Images/expand.png"
+                               Margin="2"/>
+                    </Button>
+                    <Button Width="20" Height="20"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Foreground="Gray"
-                                FontWeight="Bold"
-                                Click="CloseButton_Click"/>
-                    </StackPanel> <!--Control panel-->
+                                Click="CloseButton_Click">
+                        <Image Source="/Images/cross.png"
+                               Margin="2"/>
+                    </Button>
+                </StackPanel> 
                 </Grid>
                 
-            </Border> <!--Window Head-->
-            
-            <Border Grid.Row="1"
+            </Border>
+        <!--Left Menu-->
+        <Border Grid.Row="1"
                     Background="#2F3136">
                 <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="50" Name="SideBar_HeadRow"/>
+                            <RowDefinition Height="70"/>
                             <RowDefinition/>
                             <RowDefinition Height="60"/>
                         </Grid.RowDefinitions>
 
+                <!--Head-->
                 <Border Grid.Row="0">
-                    
+
                     <Grid>
-                        
-                        <TextBlock
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
                            Text="Справочник"
-                           VerticalAlignment="Top"
+                           VerticalAlignment="Center"
                            HorizontalAlignment="Left"
                            Foreground="LightGray"
                            FontSize="22"
-                           Margin="8,8,0,0"
-                           /> <!--Текст "Справочник"-->
-                        
-                        <Grid Margin="0,10,10,0"
-                              VerticalAlignment="Top" HorizontalAlignment="Right"
-                              Height="28" Width="28"
-                              Visibility="Visible">
-                            <CheckBox BorderThickness="0"
-                                      Margin="0"
-                                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                      Style="{StaticResource SearchButton}"
-                                      Checked="CheckBox_Checked"
-                                      Unchecked="CheckBox_Unchecked">
-                            </CheckBox> 
-                        </Grid> <!--Значок поиска-->
-                        
-                        <Grid Height="50"
-                              VerticalAlignment="Bottom"
-                              Visibility="Collapsed"
-                              Name="SearchGrid">
-                            
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            
-                            <StackPanel Grid.Row="0"
-                                        Orientation="Horizontal"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        >
-                                <TextBox Name="NameSearchBox"
-                                         Style="{StaticResource SearchBox1}"
-                                         Text="{Binding SearchText1, UpdateSourceTrigger=PropertyChanged}">
-                                    
-                                </TextBox>
-                                <TextBox Name="PostSearchBox"
-                                         Style="{StaticResource SearchBox2}"
-                                         Text="{Binding SearchText2, UpdateSourceTrigger=PropertyChanged}">
+                           Margin="10,8,0,0"
+                           />
+                        <!--Текст "Справочник"-->
+                        <Border Grid.Row="1">
+                            <TextBox Style="{StaticResource SearchBox}"
+                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Border>
 
-                                </TextBox>
-                            </StackPanel>
-                            
-                            <StackPanel Grid.Row="1"
-                                        Orientation="Horizontal"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        >
-                                <TextBox Name="NumberSearchBox"
-                                         Style="{StaticResource SearchBox3}"
-                                         Text="{Binding SearchText3, UpdateSourceTrigger=PropertyChanged}">
-                                    
-                                </TextBox>
-                                <TextBox Name="CompanyDepSearchBox"
-                                         Style="{StaticResource SearchBox4}"
-                                         Text="{Binding SearchText4, UpdateSourceTrigger=PropertyChanged}">
-                                    
-                                </TextBox>
-                            </StackPanel>
 
-                        </Grid> <!--Поиск-->
                     </Grid>
 
 
-                </Border> <!--Head-->
-
+                </Border>
+                <!--List Users-->
                 <Border Grid.Row="1">
                     <ListView ItemsSource="{Binding DatesView}"
                           SelectedItem="{Binding SelectedCard}"
                           Background="Transparent"
                           BorderThickness="0"
                           ItemContainerStyle="{StaticResource UsersCard}"/>
-                </Border> <!--List Users-->
-
+                </Border>
+                <!--User Panel-->
                 <Border Grid.Row="2"
                         Background="#292B2F">
-                    
-                        <StackPanel VerticalAlignment="Center"
+
+                    <StackPanel VerticalAlignment="Center"
                                     Grid.Row="2"
                                     Margin="10">
-                            <TextBlock Text="Илья Евсеев"
+
+                        
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Source="{Binding ConnectionIcon}"
+                                   Height="15"
+                                   Name="ConnectionIcon"/>
+                            <TextBlock Text="{Binding CurrentUserName}"
                                        Foreground="White"
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,0"/>
-                            <TextBlock Text="Помощник системного администратора"
+                        
+                        </StackPanel>
+                        
+                        <TextBlock Text="{Binding CurrentUserDepartment}"
                                        TextWrapping="Wrap"
                                        FontSize="10"
                                        FontWeight="SemiBold"
                                        LineStackingStrategy="BlockLineHeight"
                                        LineHeight="8"
-                                       Margin="0,0,0,0"
+                                       Margin="0,2,0,0"
                                        Foreground="Gray"
                                        />
                         </StackPanel>
                     
-                    </Border> <!--User Panel-->
+                    </Border> 
 
 
 
                 </Grid>
-            </Border> <!--Left Menu-->
-
-            <Grid Grid.Column="1"
+            </Border>
+        <!--Right Menu-->
+        <Grid Grid.Column="1"
               Grid.Row="1"
-              DataContext="{Binding SelectedCard}">
+              >
 
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedCard}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <!--Username(Header)-->
             <Border BorderBrush="#2f3136"
-                                BorderThickness="0,0,0,2">
+                                BorderThickness="0,0,0,2"
+                    DataContext="{Binding SelectedCard}">
                 <Grid HorizontalAlignment="Stretch"
                                   Margin="8">
                     <TextBlock Text="{Binding Username}"
@@ -205,9 +181,9 @@
 
 
             </Border>
-            <!--Username(Header)-->
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"
+                  DataContext="{Binding SelectedCard}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -221,39 +197,10 @@
 
                 </Grid.RowDefinitions>
 
-                <Border Margin="8"
-                                    CornerRadius="10"
-                                    Background="#292B2F">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                            BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1"
-                                            Margin="5,0,5,0">
-
-                        </Border>
-                        <TextBlock Grid.Row="0"
-                                               Text="Должность"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
-                        <TextBlock Grid.Row="1"
-                                               Text="{Binding Post}"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
-                    </Grid>
-                </Border>
                 <!--Должность-->
-
                 <Border Margin="8"
-                                    Grid.Column="1"
-                                    CornerRadius="10"
-                                    Background="#292B2F">
+                        CornerRadius="10"
+                        Background="#292B2F">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -261,30 +208,33 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0"
-                                            BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1"
-                                            Margin="5,0,5,0">
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,1"
+                                Margin="5,0,5,0">
+
+                            <TextBlock Grid.Row="0"
+                                       Text="Должность"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       Margin="8"
+                                       />
 
                         </Border>
-                        <TextBlock Grid.Row="0"
-                                               Text="Отдел"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
                         <TextBlock Grid.Row="1"
-                                               Text="{Binding CompanyDep}"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
+                                   Text="{Binding Post}"
+                                   TextWrapping="Wrap"
+                                   LineStackingStrategy="BlockLineHeight"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="8"/>
                     </Grid>
                 </Border>
+
                 <!--Отдел-->
-
                 <Border Margin="8"
-                                    Grid.Column="2"
-                                    Grid.Row="0"
-                                    CornerRadius="10"
-                                    Background="#292B2F">
+                        Grid.Column="1"
+                        CornerRadius="10"
+                        Background="#292B2F">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -292,29 +242,33 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0"
-                                            BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1"
-                                            Margin="5,0,5,0">
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,1"
+                                Margin="5,0,5,0">
+
+                            <TextBlock Grid.Row="0"
+                                   Text="Отдел"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="8"/>
 
                         </Border>
-                        <TextBlock Grid.Row="0"
-                                               Text="Организация"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
                         <TextBlock Grid.Row="1"
-                                               Text="{Binding CompanyName}"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
+                                   Text="{Binding CompanyDep}"
+                                   TextWrapping="Wrap"
+                                   LineStackingStrategy="BlockLineHeight"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="8"/>
                     </Grid>
                 </Border>
+
                 <!--Организация-->
-
                 <Border Margin="8"
-                                    Grid.Row="1"
-                                    CornerRadius="10"
-                                    Background="#292B2F">
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        CornerRadius="10"
+                        Background="#292B2F">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -322,30 +276,32 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0"
-                                            BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1"
-                                            Margin="5,0,5,0">
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,1"
+                                Margin="5,0,5,0">
 
+                            <TextBlock Grid.Row="0"
+                                   Text="Организация"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="8"/>
+                            
                         </Border>
-                        <TextBlock Grid.Row="0"
-                                               Text="Телефон"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
                         <TextBlock Grid.Row="1"
-                                               Text="{Binding LocalNumber}"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
+                                   Text="{Binding CompanyName}"
+                                   TextWrapping="Wrap"
+                                   LineStackingStrategy="BlockLineHeight"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="8"/>
                     </Grid>
                 </Border>
+
                 <!--Телефон-->
-
                 <Border Margin="8"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                    CornerRadius="10"
-                                    Background="#292B2F">
+                        Grid.Row="1"
+                        CornerRadius="10"
+                        Background="#292B2F">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -353,30 +309,32 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0"
-                                            BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1"
-                                            Margin="5,0,5,0">
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,1"
+                                Margin="5,0,5,0">
+
+                            <TextBlock Grid.Row="0"
+                                       Text="Телефон"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       Margin="8"/>
 
                         </Border>
-                        <TextBlock Grid.Row="0"
-                                               Text="Мобильный номер"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
+                        
                         <TextBlock Grid.Row="1"
-                                               Text="{Binding PhoneNumber}"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
+                                   Text="{Binding LocalNumber}"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="8"/>
                     </Grid>
                 </Border>
+
                 <!--Личный номер-->
-
                 <Border Margin="8"
-                                    Grid.Column="2"
-                                    Grid.Row="1"
-                                    CornerRadius="10"
-                                    Background="#292B2F">
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        CornerRadius="10"
+                        Background="#292B2F">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -384,30 +342,84 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0"
-                                            BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1"
-                                            Margin="5,0,5,0">
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,1"
+                                Margin="5,0,5,0">
 
+                            <TextBlock Grid.Row="0"
+                                       Text="Мобильный номер"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       Margin="8"/>
+                        
                         </Border>
-                        <TextBlock Grid.Row="0"
-                                               Text="Email"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
+                        
                         <TextBlock Grid.Row="1"
-                                               Text="{Binding Email}"
-                                               Foreground="White"
-                                               VerticalAlignment="Center"
-                                               Margin="8"/>
+                                   Text="{Binding PhoneNumber}"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="8"/>
                     </Grid>
                 </Border>
+
                 <!--Email-->
+                <Border Margin="8"
+                        Grid.Column="2"
+                        Grid.Row="1"
+                        CornerRadius="10"
+                        Background="#292B2F">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,1"
+                                Margin="5,0,5,0">
+                            <Grid>
+
+
+                                <TextBlock Text="Email"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="8"/>
+
+                                <Button Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="20" Width="20"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Click="SendMailButton_Click">
+                                    <Image Source="/Images/envelope.png"
+                                           Margin="2"/>
+
+                                </Button>
+                            
+                            </Grid>
+                        </Border>
+
+
+                            <TextBlock Grid.Row="1"
+                                       Name="MailTextBox"
+                                       Text="{Binding Email}"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       Margin="8"/>
+                            
+
+                    </Grid>
+                </Border>
 
 
 
 
             </Grid>
-        </Grid> <!--Right Menu-->
+        </Grid> 
 
 
 
