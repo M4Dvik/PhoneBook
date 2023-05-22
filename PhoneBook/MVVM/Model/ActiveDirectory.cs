@@ -25,6 +25,7 @@ namespace PhoneBook.MVVM.Model
                 searcher.PropertiesToLoad.Add("title");
                 searcher.PropertiesToLoad.Add("company");
                 searcher.PropertiesToLoad.Add("department");
+                searcher.PropertiesToLoad.Add("l");
 
 
                 return searcher.FindAll();

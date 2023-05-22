@@ -15,5 +15,6 @@ namespace PhoneBook.MVVM.Model
         public string? Post { get; set; }
         public string? CompanyName { get; set; }
         public string? CompanyDep { get; set;}
+        public string? CompanyType { get; set; }
     }
 }

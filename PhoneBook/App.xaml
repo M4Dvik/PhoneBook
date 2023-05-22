@@ -6,12 +6,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/UsersCard.xaml"/>
+                <ResourceDictionary Source="Theme/ObjectStyle.xaml"/>
                 <ResourceDictionary Source="Theme/ScrollBarStyle.xaml"/>
-                <ResourceDictionary Source="Theme/SearchButton.xaml"/>
-                <ResourceDictionary Source="Theme/SearchBox.xaml"/>
+                <ResourceDictionary Source="Theme/DarkColor.xaml"/>
+                <ResourceDictionary Source="Theme/LightColor.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
 
         </ResourceDictionary>
     </Application.Resources>

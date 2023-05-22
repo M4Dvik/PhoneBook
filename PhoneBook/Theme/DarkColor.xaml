@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="BackgroundLeftBrush" Color="#2F3136" />
+    <Color x:Key="BackgroundLeft">#2F3136</Color>
+
+    <SolidColorBrush x:Key="BackgroundUsersBrush" Color="#292B2F"/>
+    <Color x:Key="BackgroundUsers">#292B2F</Color>
+
+    <SolidColorBrush x:Key="BackgroundWindowBrush" Color="#36393f"/>
+    <Color x:Key="BackgroundWindow">#36393f</Color>
+    
+</ResourceDictionary>

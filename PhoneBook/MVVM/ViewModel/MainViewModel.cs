@@ -8,6 +8,7 @@ using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -26,6 +27,17 @@ namespace PhoneBook.MVVM.ViewModel
             get { return _selectedCard; }
             set { _selectedCard = value;
                 OnPropertyChanged();
+                if (value != null)
+                {
+
+                    Application.Current.MainWindow.Width = 600;
+
+                } else
+                {
+                    
+                    Application.Current.MainWindow.Width = 300;
+
+                }
             }
         }
 
@@ -67,7 +79,6 @@ namespace PhoneBook.MVVM.ViewModel
             get { return _connectionIcon; }
             set { _connectionIcon = value; }
         }
-
 
 
 
@@ -134,6 +145,7 @@ namespace PhoneBook.MVVM.ViewModel
                     string? post = searchResult.Properties.Contains("title") ? searchResult.Properties["title"][0].ToString() : string.Empty;
                     string? companyName = searchResult.Properties.Contains("company") ? searchResult.Properties["company"][0].ToString() : string.Empty;
                     string? companyDep = searchResult.Properties.Contains("department") ? searchResult.Properties["department"][0].ToString() : string.Empty;
+                    string? companyType = searchResult.Properties.Contains("l") ? searchResult.Properties["l"][0].ToString() : string.Empty;
 
                     Dates.Add(new DataModel
                     {
@@ -143,7 +155,8 @@ namespace PhoneBook.MVVM.ViewModel
                         Email = email,
                         Post = post,
                         CompanyName = companyName,
-                        CompanyDep = companyDep
+                        CompanyDep = companyDep,
+                        CompanyType = companyType
                     });
                 }
                 ConnectionIcon = "/Images/connection_on.png";
@@ -159,7 +172,15 @@ namespace PhoneBook.MVVM.ViewModel
                         LocalNumber = $"404",
                         PhoneNumber = "1234567890",
                         Email = "@mail.ru",
-                        Post = "Разнорабочий",
+                        Post = "РазнорабочийРазнорабочийРазнорабочийРазнорабочийРазнорабочийРазнорабочий",
+                        CompanyName = "Компания",
+                        CompanyDep = $"Отдел{i}",
+                    });
+                    Dates.Add(new DataModel
+                    {
+                        Username = $"Марь Иванна{i}",
+                        Email = "@mail.ru",
+                        Post = "Курьерка",
                         CompanyName = "Компания",
                         CompanyDep = $"Отдел{i}",
                     });

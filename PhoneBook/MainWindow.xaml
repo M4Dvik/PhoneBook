@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneBook" xmlns:viewmodel="clr-namespace:PhoneBook.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="Телефонный справочник" Height="450" Width="800" MinHeight="450" MinWidth="800"
+        Title="Телефонный справочник" Height="450" Width="300" MinHeight="450" MinWidth="300"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
-        Background="#36393f"
+        Background="{DynamicResource BackgroundWindowBrush}"
         AllowsTransparency="True" Icon="/Images/teamwork.ico"
         >
 
@@ -20,7 +20,7 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -29,397 +29,402 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-        <!--Window Head-->
-        <Border Grid.ColumnSpan="2"
-                    Background="#25252a"
-                    MouseDown="Border_MouseDown">
-                <Grid>
-                <!--Control panel-->
-                <StackPanel HorizontalAlignment="Right"
-                                Orientation="Horizontal">
-                    <Button Width="20" Height="20"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Click="ButtonMinimize_Click">
-                        <Image Source="/Images/window-minimize.png"
-                               Margin="2"/>
-                    </Button>
-                    <Button Width="20" Height="20"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Click="WindowStateButton_Click">
-                        <Image Source="/Images/expand.png"
-                               Margin="2"/>
-                    </Button>
-                    <Button Width="20" Height="20"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Click="CloseButton_Click">
-                        <Image Source="/Images/cross.png"
-                               Margin="2"/>
-                    </Button>
-                </StackPanel> 
-                </Grid>
-                
-            </Border>
-        <!--Left Menu-->
-        <Border Grid.Row="1"
-                    Background="#2F3136">
-                <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition/>
-                            <RowDefinition Height="60"/>
-                        </Grid.RowDefinitions>
-
-                <!--Head-->
-                <Border Grid.Row="0">
-
+            <!--Window Head-->
+            <Border Grid.ColumnSpan="2"
+                        Background="#25252a"
+                        MouseDown="Border_MouseDown">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
-                           Text="Справочник"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           Foreground="LightGray"
-                           FontSize="22"
-                           Margin="10,8,0,0"
-                           />
-                        <!--Текст "Справочник"-->
-                        <Border Grid.Row="1">
-                            <TextBox Style="{StaticResource SearchBox}"
-                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
-                        </Border>
+                    <!--Control panel-->
+                    <StackPanel HorizontalAlignment="Right"
+                                    Orientation="Horizontal">
+                        
+                        <Button Width="20" Height="20"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Click="ButtonMinimize_Click">
+                            <Image Source="/Images/window-minimize.png"
+                                       Margin="2"/>
+                        </Button>
+
+                        <Button Width="20" Height="20"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Click="WindowStateButton_Click">
+                            <Image Source="/Images/expand.png"
+                                           Margin="2"/>
+                        </Button>
+
+                        <Button Width="20" Height="20"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Click="CloseButton_Click">
+                                    <Image Source="/Images/cross.png"
+                                           Margin="2"/>
+                                </Button>
+                        
+                    </StackPanel> 
+                    </Grid>
+                
+                </Border>
+            <!--Left Menu-->
+            <Border Grid.Row="1"
+                    Background="{DynamicResource BackgroundLeftPanelBrush}">
+                    <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
+
+                    <!--Head-->
+                    <Border Grid.Row="0">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <!--Текст "Справочник"-->
+                            <TextBlock Grid.Row="0"
+                               Text="Справочник"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Foreground="{DynamicResource MainFontColorBrush}"
+                               FontSize="22"
+                               Margin="10,8,0,0"
+                               />
+                            <Border Grid.Row="1">
+                                <TextBox Style="{DynamicResource SearchBox}"
+                                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Border>
+
+
+                        </Grid>
+
+
+                    </Border>
+                    <!--List Users-->
+                    <Border Grid.Row="1">
+                        <ListView ItemsSource="{Binding DatesView}"
+                              SelectedItem="{Binding SelectedCard}"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              ItemContainerStyle="{DynamicResource UsersCard}"/>
+                    </Border>
+                    <!--User Panel-->
+                    <Border Grid.Row="2"
+                            Background="{DynamicResource BackgroundMouseOverUsersCardBrush}"
+                            CornerRadius="8"
+                            Margin="8">
+
+                        <StackPanel VerticalAlignment="Center"
+                                        Grid.Row="2"
+                                        Margin="10">
+
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Image Source="{Binding ConnectionIcon}"
+                                       Height="15"
+                                       Name="ConnectionIcon"/>
+                                <TextBlock Text="{Binding CurrentUserName}"
+                                           Foreground="{DynamicResource MainFontColorBrush}"
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,0"/>
+
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding CurrentUserDepartment}"
+                                           TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight"
+                                           FontSize="10"
+                                           FontWeight="SemiBold"
+                                           LineHeight="8"
+                                           Margin="0,2,0,0"
+                                           Foreground="{DynamicResource SideFontColorBrush}"
+                                           />
+                            </StackPanel>
+                    
+                        </Border> 
+
 
 
                     </Grid>
-
-
                 </Border>
-                <!--List Users-->
-                <Border Grid.Row="1">
-                    <ListView ItemsSource="{Binding DatesView}"
-                          SelectedItem="{Binding SelectedCard}"
-                          Background="Transparent"
-                          BorderThickness="0"
-                          ItemContainerStyle="{StaticResource UsersCard}"/>
-                </Border>
-                <!--User Panel-->
-                <Border Grid.Row="2"
-                        Background="#292B2F">
-
-                    <StackPanel VerticalAlignment="Center"
-                                    Grid.Row="2"
-                                    Margin="10">
-
-                        
-                        <StackPanel Orientation="Horizontal">
-
-                            <Image Source="{Binding ConnectionIcon}"
-                                   Height="15"
-                                   Name="ConnectionIcon"/>
-                            <TextBlock Text="{Binding CurrentUserName}"
-                                       Foreground="White"
-                                       FontWeight="SemiBold"
-                                       Margin="0,0,0,0"/>
-                        
-                        </StackPanel>
-                        
-                        <TextBlock Text="{Binding CurrentUserDepartment}"
-                                       TextWrapping="Wrap"
-                                       FontSize="10"
-                                       FontWeight="SemiBold"
-                                       LineStackingStrategy="BlockLineHeight"
-                                       LineHeight="8"
-                                       Margin="0,2,0,0"
-                                       Foreground="Gray"
-                                       />
-                        </StackPanel>
-                    
-                    </Border> 
-
-
-
-                </Grid>
-            </Border>
-        <!--Right Menu-->
-        <Grid Grid.Column="1"
-              Grid.Row="1"
-              >
-
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Setter Property="Visibility" Value="Visible" />
+            <!--Right Menu-->
+            <Border Background="{DynamicResource BackgroundUsersDataBrush}"
+                        Grid.RowSpan="2"
+                        CornerRadius="8"
+                        Margin="8"
+                        Grid.Column="1"
+                        Grid.Row="1">
+            <Border.Style>
+                <Style TargetType="Border">
+                
+                    <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding SelectedCard}" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </Style.Triggers>
+                
                 </Style>
-            </Grid.Style>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+            </Border.Style>
 
-            <!--Username(Header)-->
-            <Border BorderBrush="#2f3136"
-                                BorderThickness="0,0,0,2"
-                    DataContext="{Binding SelectedCard}">
-                <Grid HorizontalAlignment="Stretch"
-                                  Margin="8">
-                    <TextBlock Text="{Binding Username}"
-                                           Foreground="White"
-                                           FontWeight="Bold"
-                                           Margin="5,0,5,0"
-                                           VerticalAlignment="Center"/>
+                <Grid>
 
-                </Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
+
+            
+                    <!--Имя Пользователя-->
+                    <Border DataContext="{Binding SelectedCard}"
+                            BorderThickness="0,0,0,2"
+                            BorderBrush="{DynamicResource BackgroundLeftPanelBrush}"
+                            Margin="8,0,8,0">
+
+                        <TextBlock Text="{Binding Username}"
+                                                   Foreground="{DynamicResource MainFontColorBrush}"
+                                                   FontWeight="Bold"
+                                   FontSize="16"
+
+                                                   VerticalAlignment="Center"/>
+
+                    </Border>
+            
+
+                    <!--ДАНННЫЕ-->
+                    <Grid Grid.Row="1"
+                          Grid.Column="1"
+                          DataContext="{Binding SelectedCard}"
+                          Margin="8">
+
+
+                    <StackPanel>
+
+                        <!--Должность-->
+                        <StackPanel>
+
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+                                    
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Post}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </StackPanel.Resources>
+                            
+                            <TextBlock Text="ДОЛЖНОСТЬ"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       />
+                            <TextBlock Text="{Binding Post}"
+                                       Name="postText"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       Margin="8"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"/>
+                                
+                        </StackPanel>
+                        
+                        <!--Отдел-->
+                        <StackPanel>
+
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CompanyDep}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock Text="ОТДЕЛ"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       
+                                       />
+                            <TextBlock Text="{Binding CompanyDep}"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       Margin="8"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"/>
+                        </StackPanel>
+                        
+                        <!--Город-->
+                        <StackPanel>
+
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CompanyName}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock Text="ГОРОД"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       />
+                            <TextBlock Text="{Binding CompanyName}"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       Margin="8"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"/>
+                        </StackPanel>       
+                            
+                        <!--Компания-->
+                        <StackPanel>
+
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CompanyType}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock Text="Компания"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       />
+                            <TextBlock Text="{Binding CompanyType}"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       Margin="8"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"/>
+                        </StackPanel>
+                        
+                        <!--Мобильный номер-->
+                        <StackPanel>
+                            
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding PhoneNumber}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </StackPanel.Resources>
+
+
+                            <TextBlock Text="МОБИЛЬНЫЙ НОМЕР"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       />
+                            <TextBlock Text="{Binding PhoneNumber}"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       Margin="8"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"/>
+                        </StackPanel>
+                        
+                        <!--Добавочный номер-->
+                        <StackPanel>
+
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding LocalNumber}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock Text="ДОБАВОЧНЫЙ НОМЕР"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       />
+                            <TextBlock Text="{Binding LocalNumber}"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       Margin="8"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"/>
+                        </StackPanel>
+                        
+                        <!--Почта-->
+                        <StackPanel>
+
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Email}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock Text="ПОЧТА"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource MainFontColorBrush}"
+                                       />
+                            <Button Background="Transparent"
+                                    Click="SendMailButton_Click"
+                                    BorderThickness="0"
+                                    HorizontalAlignment="Left"
+                                    Margin="8">
+
+                                <TextBlock Text="{Binding Email}"
+                                           Name="MailTextBox"
+                                           Foreground="{DynamicResource MainFontColorBrush}"
+                                           TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight"/>
+
+                            </Button>
+                            
+                        </StackPanel>
+                        
+                        
+                        
+                        
+                        
+                    </StackPanel>
+                    
+                    </Grid>
+                
+                </Grid> 
 
             </Border>
-
-            <Grid Grid.Row="1"
-                  DataContext="{Binding SelectedCard}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-
-                </Grid.RowDefinitions>
-
-                <!--Должность-->
-                <Border Margin="8"
-                        CornerRadius="10"
-                        Background="#292B2F">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                BorderBrush="Gray"
-                                BorderThickness="0,0,0,1"
-                                Margin="5,0,5,0">
-
-                            <TextBlock Grid.Row="0"
-                                       Text="Должность"
-                                       Foreground="White"
-                                       VerticalAlignment="Center"
-                                       Margin="8"
-                                       />
-
-                        </Border>
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding Post}"
-                                   TextWrapping="Wrap"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="8"/>
-                    </Grid>
-                </Border>
-
-                <!--Отдел-->
-                <Border Margin="8"
-                        Grid.Column="1"
-                        CornerRadius="10"
-                        Background="#292B2F">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                BorderBrush="Gray"
-                                BorderThickness="0,0,0,1"
-                                Margin="5,0,5,0">
-
-                            <TextBlock Grid.Row="0"
-                                   Text="Отдел"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="8"/>
-
-                        </Border>
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding CompanyDep}"
-                                   TextWrapping="Wrap"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="8"/>
-                    </Grid>
-                </Border>
-
-                <!--Организация-->
-                <Border Margin="8"
-                        Grid.Column="2"
-                        Grid.Row="0"
-                        CornerRadius="10"
-                        Background="#292B2F">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                BorderBrush="Gray"
-                                BorderThickness="0,0,0,1"
-                                Margin="5,0,5,0">
-
-                            <TextBlock Grid.Row="0"
-                                   Text="Организация"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="8"/>
-                            
-                        </Border>
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding CompanyName}"
-                                   TextWrapping="Wrap"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="8"/>
-                    </Grid>
-                </Border>
-
-                <!--Телефон-->
-                <Border Margin="8"
-                        Grid.Row="1"
-                        CornerRadius="10"
-                        Background="#292B2F">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                BorderBrush="Gray"
-                                BorderThickness="0,0,0,1"
-                                Margin="5,0,5,0">
-
-                            <TextBlock Grid.Row="0"
-                                       Text="Телефон"
-                                       Foreground="White"
-                                       VerticalAlignment="Center"
-                                       Margin="8"/>
-
-                        </Border>
-                        
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding LocalNumber}"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="8"/>
-                    </Grid>
-                </Border>
-
-                <!--Личный номер-->
-                <Border Margin="8"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        CornerRadius="10"
-                        Background="#292B2F">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                BorderBrush="Gray"
-                                BorderThickness="0,0,0,1"
-                                Margin="5,0,5,0">
-
-                            <TextBlock Grid.Row="0"
-                                       Text="Мобильный номер"
-                                       Foreground="White"
-                                       VerticalAlignment="Center"
-                                       Margin="8"/>
-                        
-                        </Border>
-                        
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding PhoneNumber}"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="8"/>
-                    </Grid>
-                </Border>
-
-                <!--Email-->
-                <Border Margin="8"
-                        Grid.Column="2"
-                        Grid.Row="1"
-                        CornerRadius="10"
-                        Background="#292B2F">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                BorderBrush="Gray"
-                                BorderThickness="0,0,0,1"
-                                Margin="5,0,5,0">
-                            <Grid>
-
-
-                                <TextBlock Text="Email"
-                                       Foreground="White"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Margin="8"/>
-
-                                <Button Background="Transparent"
-                                        BorderThickness="0"
-                                        Height="20" Width="20"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Right"
-                                        Click="SendMailButton_Click">
-                                    <Image Source="/Images/envelope.png"
-                                           Margin="2"/>
-
-                                </Button>
-                            
-                            </Grid>
-                        </Border>
-
-
-                            <TextBlock Grid.Row="1"
-                                       Name="MailTextBox"
-                                       Text="{Binding Email}"
-                                       TextWrapping="Wrap"
-                                       LineStackingStrategy="BlockLineHeight"
-                                       Foreground="White"
-                                       VerticalAlignment="Center"
-                                       Margin="8"/>
-                            
-
-                    </Grid>
-                </Border>
-
-
-
-
-            </Grid>
-        </Grid> 
 
 
 
