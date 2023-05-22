@@ -90,14 +90,14 @@ namespace PhoneBook.MVVM.ViewModel
             {
                 if (o is DataModel data)
                 {
-                    bool matchesSearchText = string.IsNullOrEmpty(SearchText) 
-                     || data.Username.ToLower().Contains(SearchText.ToLower())
-                     || data.Post.ToLower().Contains(SearchText.ToLower())
-                     || data.LocalNumber.ToLower().Contains(SearchText.ToLower())
-                     || data.Email.ToLower().Contains(SearchText.ToLower())
-                     || data.PhoneNumber.ToLower().Contains(SearchText.ToLower())
-                     || data.CompanyName.ToLower().Contains(SearchText.ToLower())
-                     || data.CompanyDep.ToLower().Contains(SearchText.ToLower());
+                    bool matchesSearchText = string.IsNullOrEmpty(SearchText)
+                || (data.Username != null && data.Username.ToLower().Contains(SearchText.ToLower()))
+                || (data.Post != null && data.Post.ToLower().Contains(SearchText.ToLower()))
+                || (data.LocalNumber != null && data.LocalNumber.ToLower().Contains(SearchText.ToLower()))
+                || (data.Email != null && data.Email.ToLower().Contains(SearchText.ToLower()))
+                || (data.PhoneNumber != null && data.PhoneNumber.ToLower().Contains(SearchText.ToLower()))
+                || (data.CompanyName != null && data.CompanyName.ToLower().Contains(SearchText.ToLower()))
+                || (data.CompanyDep != null && data.CompanyDep.ToLower().Contains(SearchText.ToLower()));
 
                     // Применяем логический оператор для комбинирования условий
                     return matchesSearchText;

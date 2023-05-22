@@ -94,7 +94,7 @@
                                Margin="10,8,0,0"
                                />
                             <Border Grid.Row="1">
-                                <TextBox Style="{DynamicResource SearchBox}"
+                                <TextBox Style="{StaticResource SearchBox}"
                                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                             </Border>
 
