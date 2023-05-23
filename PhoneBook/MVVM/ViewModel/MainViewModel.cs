@@ -1,5 +1,6 @@
 ﻿using PhoneBook.Core;
 using PhoneBook.MVVM.Model;
+using PhoneBook.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -84,30 +85,6 @@ namespace PhoneBook.MVVM.ViewModel
 
 
 
-        private void ApplyFilter()
-        {
-            DatesView.Filter = o =>
-            {
-                if (o is DataModel data)
-                {
-                    bool matchesSearchText = string.IsNullOrEmpty(SearchText)
-                || (data.Username != null && data.Username.ToLower().Contains(SearchText.ToLower()))
-                || (data.Post != null && data.Post.ToLower().Contains(SearchText.ToLower()))
-                || (data.LocalNumber != null && data.LocalNumber.ToLower().Contains(SearchText.ToLower()))
-                || (data.Email != null && data.Email.ToLower().Contains(SearchText.ToLower()))
-                || (data.PhoneNumber != null && data.PhoneNumber.ToLower().Contains(SearchText.ToLower()))
-                || (data.CompanyName != null && data.CompanyName.ToLower().Contains(SearchText.ToLower()))
-                || (data.CompanyDep != null && data.CompanyDep.ToLower().Contains(SearchText.ToLower()));
-
-                    // Применяем логический оператор для комбинирования условий
-                    return matchesSearchText;
-                }
-
-                return false;
-            };
-
-            DatesView.Refresh();
-        }
 
 
 
@@ -138,14 +115,15 @@ namespace PhoneBook.MVVM.ViewModel
             {
                 foreach (SearchResult searchResult in ActiveDirectory.Users)
                 {
-                    string? username = searchResult.Properties.Contains("name") ? searchResult.Properties["name"][0].ToString() : string.Empty;
-                    string? localNumber = searchResult.Properties.Contains("telephoneNumber") ? searchResult.Properties["telephoneNumber"][0].ToString() : string.Empty;
-                    string? phoneNumber = searchResult.Properties.Contains("mobile") ? searchResult.Properties["mobile"][0].ToString() : string.Empty;
-                    string? email = searchResult.Properties.Contains("mail") ? searchResult.Properties["mail"][0].ToString() : string.Empty;
-                    string? post = searchResult.Properties.Contains("title") ? searchResult.Properties["title"][0].ToString() : string.Empty;
-                    string? companyName = searchResult.Properties.Contains("company") ? searchResult.Properties["company"][0].ToString() : string.Empty;
-                    string? companyDep = searchResult.Properties.Contains("department") ? searchResult.Properties["department"][0].ToString() : string.Empty;
-                    string? companyType = searchResult.Properties.Contains("l") ? searchResult.Properties["l"][0].ToString() : string.Empty;
+                    string? username = searchResult.Properties.Contains("name") ? searchResult.Properties["name"][0].ToString() : null;
+                    string? localNumber = searchResult.Properties.Contains("telephoneNumber") ? searchResult.Properties["telephoneNumber"][0].ToString() : null;
+                    string? phoneNumber = searchResult.Properties.Contains("mobile") ? searchResult.Properties["mobile"][0].ToString() : null;
+                    string? email = searchResult.Properties.Contains("mail") ? searchResult.Properties["mail"][0].ToString() : null;
+                    string? post = searchResult.Properties.Contains("title") ? searchResult.Properties["title"][0].ToString() : null;
+                    string? companyName = searchResult.Properties.Contains("company") ? searchResult.Properties["company"][0].ToString() : null;
+                    string? companyDep = searchResult.Properties.Contains("department") ? searchResult.Properties["department"][0].ToString() : null;
+                    string? companyType = searchResult.Properties.Contains("l") ? searchResult.Properties["l"][0].ToString() : null;
+                    string? fatherName = searchResult.Properties.Contains("extensionAttribute2") ? searchResult.Properties["extensionAttribute2"][0].ToString() : null;
 
                     Dates.Add(new DataModel
                     {
@@ -156,7 +134,9 @@ namespace PhoneBook.MVVM.ViewModel
                         Post = post,
                         CompanyName = companyName,
                         CompanyDep = companyDep,
-                        CompanyType = companyType
+                        CompanyType = companyType,
+                        Fathername = fatherName,
+                        Fullname = $"{username} {fatherName}",
                     });
                 }
                 ConnectionIcon = "/Images/connection_on.png";
@@ -168,7 +148,9 @@ namespace PhoneBook.MVVM.ViewModel
                 {
                     Dates.Add(new DataModel
                     {
-                        Username = $"Вася Пупкин{i}",
+                        Username = $"Вася Петров{i}",
+                        Fathername = "Александрович",
+                        Fullname = $"Вася Петров{i} Александрович",
                         LocalNumber = $"404",
                         PhoneNumber = "1234567890",
                         Email = "@mail.ru",
@@ -178,9 +160,11 @@ namespace PhoneBook.MVVM.ViewModel
                     });
                     Dates.Add(new DataModel
                     {
-                        Username = $"Марь Иванна{i}",
+                        Username = $"Петя Васечкин{i}",
+                        Fathername = "Александрович",
+                        Fullname = $"Петя Васечкин{i} Александрович",
                         Email = "@mail.ru",
-                        Post = "Курьерка",
+                        Post = "Курьер",
                         CompanyName = "Компания",
                         CompanyDep = $"Отдел{i}",
                     });
@@ -192,9 +176,32 @@ namespace PhoneBook.MVVM.ViewModel
 
 
 
-
         }
 
+        private void ApplyFilter()
+        {
+            DatesView.Filter = o =>
+            {
+                if (o is DataModel data)
+                {
+                    bool matchesSearchText = string.IsNullOrEmpty(SearchText)
+                || (data.Fullname != null && data.Fullname.ToLower().Contains(SearchText.ToLower()))
+                || (data.Post != null && data.Post.ToLower().Contains(SearchText.ToLower()))
+                || (data.LocalNumber != null && data.LocalNumber.ToLower().Contains(SearchText.ToLower()))
+                || (data.Email != null && data.Email.ToLower().Contains(SearchText.ToLower()))
+                || (data.PhoneNumber != null && data.PhoneNumber.ToLower().Contains(SearchText.ToLower()))
+                || (data.CompanyName != null && data.CompanyName.ToLower().Contains(SearchText.ToLower()))
+                || (data.CompanyDep != null && data.CompanyDep.ToLower().Contains(SearchText.ToLower()));
+
+                    // Применяем логический оператор для комбинирования условий
+                    return matchesSearchText;
+                }
+
+                return false;
+            };
+
+            DatesView.Refresh();
+        }
 
 
 

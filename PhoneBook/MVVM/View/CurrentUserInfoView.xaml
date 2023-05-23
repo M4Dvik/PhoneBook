@@ -1,0 +1,80 @@
+﻿<Popup x:Class="PhoneBook.MVVM.View.CurrentUserInfoView"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:local="clr-namespace:PhoneBook.MVVM.View"
+       xmlns:app="clr-namespace:PhoneBook"
+       xmlns:viewmodel="clr-namespace:PhoneBook.MVVM.ViewModel"
+       StaysOpen="False">
+
+
+
+    
+        <Border Height="300"
+                Width="290"
+                Margin="10"
+                CornerRadius="10"
+                BorderThickness="0"
+                Background="{DynamicResource BackgroundUsersDataBrush}">
+            <Grid>
+                
+                <TextBox Margin="8,8,8,40"
+                         BorderThickness="0"
+                         Name="Messsage"
+                         TextWrapping="Wrap">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Grid>
+
+                                        <ScrollViewer x:Name="PART_ContentHost" />
+                                        <TextBlock Background="Transparent"
+                                                   Margin="2,0,0,0"
+                                                   Name="TextBlock"
+                                                   Text="Если некоторые данные не актуальны или не указаны, вы можете написать их сюда, мы как можно быстрее постараемся обновить информацию. Обратите внимание, данные обновятся после проверки!"
+                                                   TextWrapping="Wrap"
+                                                   Foreground="{DynamicResource SideFontColorBrush}"
+                                                   IsHitTestVisible="False"
+                                                   Visibility="Collapsed">
+
+                                        </TextBlock>
+
+                                        
+                                    </Grid>
+
+                                    <ControlTemplate.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value=""/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter TargetName="TextBlock" Property="Visibility" Value="Visible"/>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                    
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+                <Button Margin="8"
+                        Background="Transparent"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Height="24" Width="24"
+                        BorderThickness="0"
+                        Click="Button_Click">
+                    <Image Source="/Images/paper-plane-top.png"/>
+                </Button>
+                
+            </Grid>
+            
+
+        </Border>
+
+
+</Popup>

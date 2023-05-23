@@ -12,8 +12,10 @@
     <None Remove="Images\connection_off.png" />
     <None Remove="Images\connection_on.png" />
     <None Remove="Images\cross.png" />
+    <None Remove="Images\edit.png" />
     <None Remove="Images\envelope.png" />
     <None Remove="Images\expand.png" />
+    <None Remove="Images\paper-plane-top.png" />
     <None Remove="Images\teamwork.ico" />
     <None Remove="Images\window-minimize.png" />
   </ItemGroup>
@@ -26,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Fonts\" />
-    <Folder Include="MVVM\View\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,10 +44,16 @@
     <Resource Include="Images\cross.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\envelope.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\expand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\paper-plane-top.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\teamwork.ico">

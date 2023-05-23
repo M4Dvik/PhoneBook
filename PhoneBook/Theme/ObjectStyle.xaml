@@ -83,7 +83,7 @@
                             
                                 <ScrollViewer x:Name="PART_ContentHost"/>
                             
-                                <TextBlock Text="{Binding Username}"
+                                <TextBlock Text="{Binding Fullname}"
                                            Name="username"
                                            Foreground="{DynamicResource SideFontColorBrush}"
                                            Margin="0,10,0,0"

@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Media.Animation;
-using PhoneBook.MVVM.ViewModel;
+
 using System.Diagnostics;
+using PhoneBook.MVVM.View;
+using System.Windows.Controls.Primitives;
 
 namespace PhoneBook
 {
@@ -26,6 +18,7 @@ namespace PhoneBook
         public MainWindow()
         {
             InitializeComponent();
+            SearchTextBox.Focus();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -70,7 +63,23 @@ namespace PhoneBook
 
         }
 
+        private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            SearchTextBox.Text = CurrentUserName.Text;
+            if (ListUser.Items.Count > 0)
+            {
+                ListUser.SelectedItem = ListUser.Items[0];
+            }
+        }
 
-    
+        private void OpenWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            var messageWindow = new CurrentUserInfoView();
+            messageWindow.PlacementTarget = this;
+            messageWindow.HorizontalOffset = 8;
+            messageWindow.VerticalOffset = this.ActualHeight - 60;
+            messageWindow.IsOpen = true;
+        }
+
     }
 }

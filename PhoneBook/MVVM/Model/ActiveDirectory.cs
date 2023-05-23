@@ -24,8 +24,9 @@ namespace PhoneBook.MVVM.Model
                 searcher.PropertiesToLoad.Add("mail");
                 searcher.PropertiesToLoad.Add("title");
                 searcher.PropertiesToLoad.Add("company");
-                searcher.PropertiesToLoad.Add("department");
-                searcher.PropertiesToLoad.Add("l");
+                searcher.PropertiesToLoad.Add("department"); 
+                searcher.PropertiesToLoad.Add("l"); // Организация
+                searcher.PropertiesToLoad.Add("extensionAttribute2"); // Отчество
 
 
                 return searcher.FindAll();

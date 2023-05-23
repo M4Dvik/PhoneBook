@@ -5,12 +5,16 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
+                
                 <ResourceDictionary Source="Theme/ObjectStyle.xaml"/>
                 <ResourceDictionary Source="Theme/ScrollBarStyle.xaml"/>
                 <ResourceDictionary Source="Theme/DarkColor.xaml"/>
                 <ResourceDictionary Source="Theme/LightColor.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
+            
 
         </ResourceDictionary>
     </Application.Resources>
