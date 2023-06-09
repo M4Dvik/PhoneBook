@@ -71,14 +71,21 @@ namespace PhoneBook
                 ListUser.SelectedItem = ListUser.Items[0];
             }
         }
-
+        bool pushUp = false;
         private void OpenWindowButton_Click(object sender, RoutedEventArgs e)
         {
             var messageWindow = new CurrentUserInfoView();
             messageWindow.PlacementTarget = this;
             messageWindow.HorizontalOffset = 8;
             messageWindow.VerticalOffset = this.ActualHeight - 60;
-            messageWindow.IsOpen = true;
+            if (!pushUp)
+            {
+                messageWindow.IsOpen = true;
+                pushUp = true;
+            } else
+            {
+                pushUp = false;
+            }
         }
 
     }

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneBook" xmlns:viewmodel="clr-namespace:PhoneBook.MVVM.ViewModel"
-        
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Телефонный справочник" Height="450" Width="300" MinHeight="450" MinWidth="300"
         WindowStyle="None"
@@ -342,7 +342,7 @@
                                 </Style>
                             </StackPanel.Resources>
 
-                            <TextBlock Text="Компания"
+                            <TextBlock Text="КОМПАНИЯ"
                                        FontWeight="Bold"
                                        Foreground="{DynamicResource MainFontColorBrush}"
                                        />

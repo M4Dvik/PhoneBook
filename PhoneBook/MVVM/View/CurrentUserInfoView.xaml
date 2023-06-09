@@ -6,13 +6,14 @@
        xmlns:local="clr-namespace:PhoneBook.MVVM.View"
        xmlns:app="clr-namespace:PhoneBook"
        xmlns:viewmodel="clr-namespace:PhoneBook.MVVM.ViewModel"
-       StaysOpen="False">
+       StaysOpen="False"
+       AllowsTransparency="True">
 
 
 
     
         <Border Height="300"
-                Width="290"
+                Width="280"
                 Margin="10"
                 CornerRadius="10"
                 BorderThickness="0"
